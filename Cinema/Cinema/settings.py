@@ -250,7 +250,7 @@ SITE_ID = 1
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'aleksdoterov@gmail.com'
-EMAIL_HOST_PASSWORD = '+sashanesterovich8061021-'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 465
 
 
