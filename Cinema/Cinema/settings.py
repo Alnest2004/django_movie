@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'modeltranslation',
+    # 'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
-    'django.middleware.locale.LocaleMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -143,11 +143,11 @@ LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
-gettext = lambda s: s
-LANGUAGES = (
-    ('ru', gettext('Russia')),
-    ('en', gettext('English')),
-)
+# gettext = lambda s: s
+# LANGUAGES = (
+#     ('ru', gettext('Russia')),
+#     ('en', gettext('English')),
+# )
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),

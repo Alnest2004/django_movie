@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django import forms
+from django.contrib.admin import ModelAdmin
 from django.utils.safestring import mark_safe
 
 from .models import *
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from modeltranslation.admin import TranslationAdmin
+
 
 
 class MovieAdminForm(forms.ModelForm):
@@ -21,7 +22,7 @@ class MovieAdminForm(forms.ModelForm):
 
 
 @admin.register(Category)
-class CategoryAdmin(TranslationAdmin):
+class CategoryAdmin(ModelAdmin):
     """Категории"""
     # list_display указывает какие поля отображать на странице списка объектов.
     list_display = ("id", "name", "url")
@@ -60,7 +61,7 @@ class MovieShotsInLine(admin.TabularInline):
 
 
 @admin.register(Movie)
-class MovieAdmin(TranslationAdmin):
+class MovieAdmin(ModelAdmin):
     """Фильмы"""
     list_display = ("title", "category", "url", "draft")
     list_filter = ("category", "year")
@@ -155,14 +156,14 @@ class ReviewAdmin(admin.ModelAdmin):
 
 
 @admin.register(Genre)
-class GenreAdmin(TranslationAdmin):
+class GenreAdmin(ModelAdmin):
     """Жанры"""
     list_display = ("name", "url")
 
 
 
 @admin.register(Actor)
-class ActorAdmin(TranslationAdmin):
+class ActorAdmin(ModelAdmin):
     """Актёры"""
     list_display = ("name", "age", "get_image")
     readonly_fields = ("get_image", )
@@ -183,7 +184,7 @@ class RatingAdmin(admin.ModelAdmin):
 
 
 @admin.register(MovieShots)
-class MovieShotsAdmin(TranslationAdmin):
+class MovieShotsAdmin(ModelAdmin):
     """Кадры из фильма"""
     list_display = ("title", "movie", "get_image")
     readonly_fields = ("get_image",)
@@ -194,11 +195,32 @@ class MovieShotsAdmin(TranslationAdmin):
 
     get_image.short_description = "Изображение"
 
-# admin.site.register(Category, CategoryAdmin)
-# admin.site.register(Genre)
-# admin.site.register(Movie)
-# admin.site.register(MovieShots)
-# admin.site.register(Actor)
+
+@admin.register(Employees)
+class EmployeesAdmin(admin.ModelAdmin):
+    """Работники"""
+    list_display = ("status", "FIO", "Number", "address")
+
+
+@admin.register(Supplier_list)
+class Supplier_listAdmin(admin.ModelAdmin):
+    """Поставщики"""
+    list_display = ("name", "address")
+
+
+@admin.register(Cinema)
+class CinemaAdmin(admin.ModelAdmin):
+    """Кинотеатры"""
+    list_display = ("name", "address", "number")
+
+    fieldsets = (
+        (None, {
+            "fields": (("employee", "supplier"),)
+        }),
+
+    )
+
+
 # admin.site.register(Rating)
 admin.site.register(RatingStar)
 # admin.site.register(Reviews)

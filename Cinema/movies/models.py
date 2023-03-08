@@ -83,6 +83,7 @@ class Movie(models.Model):
     )
     url = models.SlugField(max_length=130, unique=True)
     draft = models.BooleanField("Черновик", default=False)
+    cinema = models.ForeignKey("Cinema", verbose_name="Кинотеатр", on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.title
@@ -164,3 +165,61 @@ class Reviews(models.Model):
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
+
+
+class Employees(models.Model):
+    """Работники"""
+    STATUS_CHOICES = [
+        ('cinema_manager', 'Cinema Manager'),
+        ('accountant', 'Accountant'),
+        ('booker', 'Booker'),
+        ('adversting_and_marketing_manager', 'Advertising and Marketing Manager'),
+        ('film_engineer', 'Film engineer'),
+        ('projectionist', 'Projectionist'),
+        ('administrator', 'Administrator'),
+        ('controllers', 'Controllers'),
+        ('senior_cashier', 'Senior cashier'),
+        ('cashiers', 'Cashiers'),
+        ('bartenders', 'Bartenders'),
+        ('cleaner', 'Cleaner'),
+        ('security_guard', 'Security guard'),
+        ('unknown', 'Unknown'),
+    ]
+    status = models.CharField("Статус", max_length=50, choices=STATUS_CHOICES, default="unknown", )
+    FIO = models.CharField("ФИО", max_length=100)
+    Number = models.CharField("Номер телефона", max_length=30)
+    address = models.CharField("Адрес", max_length=100)
+
+    def __str__(self):
+        return f"{self.FIO} - {self.status}"
+
+    class Meta:
+        verbose_name = "Работник"
+        verbose_name_plural = "Работники"
+
+
+class Supplier_list(models.Model):
+    name = models.CharField("Название поставщика", max_length=50)
+    address = models.CharField("Адрес поставщика", max_length=100)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = "Поставщик"
+        verbose_name_plural = "Поставщики"
+
+
+class Cinema(models.Model):
+    name = models.CharField("Название кинотеатра", max_length=50)
+    address = models.CharField("Адрес кинотеатра", max_length=100)
+    number = models.CharField("Номер телефона кинотеатра", max_length=30)
+    employee = models.ManyToManyField(Employees, verbose_name="работник", related_name="cinema_employee")
+    supplier = models.ManyToManyField(Supplier_list, verbose_name="поставщик", related_name="cinema_supplier")
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = "Кинотеатр"
+        verbose_name_plural = "Кинотеатры"

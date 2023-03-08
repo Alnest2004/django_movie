@@ -1,5 +1,5 @@
 {% extends 'movies/base.html' %}
-{% load static i18n %}
+<!--{% load static i18n %}-->
 {% block title %} {{ movie.title }} {% endblock title %}
 {% block container %}
     <div class="container py-md-3">
@@ -24,15 +24,15 @@
                             <h5 class="editContent"></h5>
                             <ul>
                                 <li style="list-style: none">
-                                    <span><b>{% trans 'Год' %}:</b> {{ movie.year }}</span></li>
+                                    <span><b>Год:</b> {{ movie.year }}</span></li>
                                 <li style="list-style: none">
-                                    <span><b>{% trans 'Страна' %}:</b> {{ movie.country }}</span>
+                                    <span><b>Страна:</b> {{ movie.country }}</span>
                                 </li>
                                 <li style="list-style: none">
-                                    <span><b>{% trans 'Слоган' %}:</b> {{ movie.tagline }}</span>
+                                    <span><b>Слоган:</b> {{ movie.tagline }}</span>
                                 </li>
                                 <li style="list-style: none">
-                                    <span><b>{% trans 'Режиссер' %}:</b>
+                                    <span><b>Режиссер:</b>
                                         {% for director in movie.directors.all %}
                                            <a href="{{ director.get_absolute_url }}">
                                                {{ director.name }}
@@ -40,7 +40,7 @@
                                         {% endfor %}
                                     </span>
                                 </li>
-                                <li style="list-style: none"><span><b>{% trans 'Актеры' %}:</b>
+                                <li style="list-style: none"><span><b>Актеры:</b>
                                     <!-- movie.actors.all - получение всех объектов
                                      actors связанных с movie. movie - название модели.
                                      actors-поле в модели movie -->
@@ -51,27 +51,27 @@
                                     {% endfor %}
                                 </span>
                                 </li>
-                                <li style="list-style: none"><span><b>{% trans 'Жанр' %}:</b>
+                                <li style="list-style: none"><span><b>Жанр:</b>
                                     {% for genre in movie.genres.all %}
                                         {{ genre.name }}
                                     {% endfor %}
                                     </span>
                                 </li>
-                                <li><span><b>{% trans 'Премьера в мире' %}:</b> {{ movie.world_premiere }}</span>
+                                <li><span><b>Премьера в мире:</b> {{ movie.world_premiere }}</span>
                                 </li>
                                 <li>
-                                    <span><b>{% trans 'Бюджет' %}:</b> ${{ movie.budget }}</span></li>
+                                    <span><b>Бюджет:</b> ${{ movie.budget }}</span></li>
                                 <li>
-                                    <span><b>{% trans 'Сборы в США' %}:</b> ${{ movie.fess_in_usa }}</span></li>
-                                <li><span><b>{% trans 'Сборы в мире' %}:</b> ${{ movie.fess_in_world }}</span>
+                                    <span><b>Сборы в США:</b> ${{ movie.fess_in_usa }}</span></li>
+                                <li><span><b>Сборы в мире:</b> ${{ movie.fess_in_world }}</span>
                                 </li>
                                 <li>
                                     {% if view.get_rating %}
                                         {% for rat in view.get_rating %}
-                                            <span>{% trans 'Ваша оценка' %} = {{ rat.star }}</span>
+                                            <span>Ваша оценка = {{ rat.star }}</span>
                                         {% endfor %}
                                     {% else %}
-                                        <span>{% trans 'Вы ещё не поставили оценку' %}!</span>
+                                        <span>Вы ещё не поставили оценку!</span>
                                     {% endif %}
 <!--                                    {% for rat in view.get_rating %}-->
 <!--                                        {% if rat %}-->
@@ -145,7 +145,7 @@
                     <div class="row sub-para-w3layouts mt-5">
 
                         <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
-                            {% trans 'О фильме' %}: {{ movie.title }}
+                            О фильме: {{ movie.title }}
                         </h3>
                         <p>
                             {% for image in movie.movieshots_set.all %}
@@ -180,7 +180,7 @@
                            которая ничего не знает про модель reviews. Данная функция называется ("reverse lookup") -->
                                     <span class="sub-tittle editContent"
                                           style="outline: none; cursor: inherit;">{{ movie.reviews_set.count }}</span>
-                                    {% trans 'Оставить отзыв' %}</h3>
+                                    Оставить отзыв</h3>
                                 <!-- action= это обработчик, к которому обращаются данные формы при их
                                  отправке на сервер.  movie.id, Тут movie-это название модели  -->
                                 <form action="{% url 'add_review' movie.id %}" method="post" class="mt-4" id="formReview">
