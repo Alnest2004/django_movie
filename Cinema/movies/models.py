@@ -83,7 +83,7 @@ class Movie(models.Model):
     )
     url = models.SlugField(max_length=130, unique=True)
     draft = models.BooleanField("Черновик", default=False)
-    cinema = models.ForeignKey("Cinema", verbose_name="Кинотеатр", on_delete=models.SET_NULL, null=True)
+    cinema = models.ManyToManyField("Cinema", verbose_name="Кинотеатр", null=True)
 
     def __str__(self):
         return self.title

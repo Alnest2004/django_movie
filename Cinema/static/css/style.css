@@ -229,6 +229,10 @@ li > a:only-child:after {
     content: '';
 }
 
+.xoxoxo{
+    font-color: black;
+}
+
 
 /* Media Queries
 --------------------------------------------- */
@@ -382,7 +386,7 @@ li > a:only-child:after {
 /*--/banner --*/
 
 .main-banner {
-    background: url(../images/banner.jpg) no-repeat center;
+    background: url(../images/backall.jpg) no-repeat center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -393,7 +397,7 @@ li > a:only-child:after {
 }
 
 .main-banner.inner {
-    background: url(../images/banner.jpg) no-repeat center;
+    background: url(../images/backall.jpg) no-repeat center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -406,7 +410,7 @@ li > a:only-child:after {
 .bg1 {
     background-color: rgba(0, 0, 0, 0);
     margin-top: 0;
-    background-image: url('../single-post-pic.jpg');
+    background-image: url('../back3.jpg');
 }
 
 /*-- place holder --*/
@@ -439,13 +443,13 @@ li > a:only-child:after {
 .banner-info h3 {
     font-size: 3.5em;
     letter-spacing: 2px;
-    color: #fff;
+    color: black;
     text-transform: uppercase;
     text-shadow: 2px 5px 3px rgba(0, 0, 0, 0.06);
 }
 
 .banner-info p {
-    color: #fff;
+    color: black;
     font-size: 0.8em;
     letter-spacing: 2px;
     font-weight: 400;

@@ -10,10 +10,7 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 class MovieAdminForm(forms.ModelForm):
     """Форма с виджетом ckeditor"""
-
-    # _ru _en - Добавляем их, так как мы используем ckeditor.
     description_ru = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
-    description_en = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Movie
@@ -63,30 +60,24 @@ class MovieShotsInLine(admin.TabularInline):
 @admin.register(Movie)
 class MovieAdmin(ModelAdmin):
     """Фильмы"""
-    list_display = ("title", "category", "url", "draft")
+    list_display = ("title", "draft")
+
+
+    # list_display = ("title", "category", "url", "draft")
     list_filter = ("category", "year")
     search_fields = ("title", "category__name")
-    # Интерфейс администратора позволяет редактировать связанные объекты на одной
-    # странице с родительским объектом. Это называется “inlines”
     inlines = [MovieShotsInLine, ReviewInLine]
     save_on_top = True
-    # Если save_as равен True, “Сохранить и добавить новый” будет заменена кнопкой
-    # “Сохранить как”. Укажите save_as, чтобы включить возможность “сохранять как”
-    # на странице редактирования объекта.
     save_as = True
-    # указываем поле которое можем редактировать не заходя в него
     list_editable = ("draft", )
-    # тут мы добавляем в действия функции, которые прописали ниже.
     actions = ["publish", "unpublish"]
-    form = MovieAdminForm
+    # form = MovieAdminForm
     readonly_fields = ("get_image", )
-    # объединяем данные поля в один. В кортеже указываем кортеж полей, которые должны
-    # быть в одной строке
-    # fields = (("actors", "directors", "genres"), )
-    # указываем кортеж который будет содержать кортежи содержать словарь, где
-    # мы указываем ключ fields и кортеж тех полей которых мы хотим использовать
-    # если мы указываем двойной кортеж, значит мы объединяем в одну строку эти поля
+
     fieldsets = (
+        (None, {
+            "fields": (("cinema"),)
+        }),
         (None, {
             "fields": (("title", "tagline"), )
         }),
@@ -94,23 +85,21 @@ class MovieAdmin(ModelAdmin):
             "fields": ("description", ("poster", "get_image"))
         }),
         (None, {
-            "fields": (("year", "world_premiere", "country"), )
+            "fields": (("year", "world_premiere", "country"),)
         }),
         ("Актёры", {
-            # указываем ключ classes и значением передаём кортеж с именем класса collapse
-            # тем самым делаем данную вкладку свёрнутой. Группа полей с классом collapse
-            # будет показа в свернутом виде с кнопкой “развернуть”.
-            # classes - Список содержащий CSS классы, которые будут добавлены в группу полей."""
-            "classes": ("collapse ", ),
-            "fields": (("actors", "directors", "genres", "category"), )
+            "classes": ("collapse ",),
+            "fields": (("actors", "directors", "genres", "category"),)
         }),
         (None, {
-            "fields": (("budget", "fess_in_usa", "fess_in_world"), )
+            "fields": (("budget", "fess_in_usa", "fess_in_world"),)
         }),
         ("Options", {
             "fields": (("url", "draft"),)
         }),
     )
+
+
 
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.poster.url} width="100" height="110" ')
@@ -200,18 +189,24 @@ class MovieShotsAdmin(ModelAdmin):
 class EmployeesAdmin(admin.ModelAdmin):
     """Работники"""
     list_display = ("status", "FIO", "Number", "address")
+    list_filter = ("status", "FIO")
+    search_fields = ("status", "FIO")
 
 
 @admin.register(Supplier_list)
 class Supplier_listAdmin(admin.ModelAdmin):
     """Поставщики"""
     list_display = ("name", "address")
+    list_filter = ("address", "name")
+    search_fields = ("address", "name")
 
 
 @admin.register(Cinema)
 class CinemaAdmin(admin.ModelAdmin):
     """Кинотеатры"""
     list_display = ("name", "address", "number")
+    list_filter = ("name",)
+    search_fields = ("name",)
 
     fieldsets = (
         (None, {

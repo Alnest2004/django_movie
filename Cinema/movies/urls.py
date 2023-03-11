@@ -1,4 +1,5 @@
 from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns =[
@@ -10,4 +11,6 @@ urlpatterns =[
     path("review/<int:pk>/", views.AddReview.as_view(), name='add_review'),
     path("category/<slug:cat_slug>/", views.CategoryView.as_view(), name='category'),
     path("actor/<str:slug>/", views.ActorView.as_view(), name='actor_detail'),
+
+path('pages/', include('django.contrib.flatpages.urls'), name='xz'),
 ]
