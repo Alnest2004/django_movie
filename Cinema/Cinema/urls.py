@@ -4,7 +4,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from movies.views import register, verify_code
+
 urlpatterns = [
+path('register/', register, name="megaregister"),
+path('verify/', verify_code, name="megaverify"),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 path('accounts/', include('allauth.urls')),
@@ -12,6 +16,7 @@ path('accounts/', include('allauth.urls')),
     path('contact/', include("contact.urls")),
     path("", include("movies.urls")),
     # path('i18n/', include('django.conf.urls.i18n')),
+
 ]
 
 # urlpatterns += i18n_patterns(

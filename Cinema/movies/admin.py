@@ -215,8 +215,11 @@ class CinemaAdmin(admin.ModelAdmin):
 
     )
 
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    """Пользователи"""
+    list_display = ("username", "phone", "is_verified")
 
-# admin.site.register(Rating)
 admin.site.register(RatingStar)
 # admin.site.register(Reviews)
 

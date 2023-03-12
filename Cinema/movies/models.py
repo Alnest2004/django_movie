@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from ckeditor.fields import RichTextField
 
@@ -223,3 +224,9 @@ class Cinema(models.Model):
     class Meta:
         verbose_name = "Кинотеатр"
         verbose_name_plural = "Кинотеатры"
+
+
+class User(AbstractUser):
+    phone = models.CharField(max_length=20, blank=False)
+    is_verified = models.BooleanField(default=False)
+

@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -5,8 +7,9 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 
+from . import verify
 from .models import Movie, Category, Actor, Genre, Rating
-from .forms import ReviewForm, RatingForm
+from .forms import ReviewForm, RatingForm, UserCreationForm, VerifyForm
 from .utils import DataMixin
 
 
@@ -201,3 +204,35 @@ class Search(ListView):
         # что бы у нас работала пагинация
         context["q"] = f'q={self.request.GET.get("q")}&'
         return context
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            verify.send(form.cleaned_data.get('phone'))
+            username = request.POST['username']
+            password = request.POST['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('megaverify')
+    else:
+        form = UserCreationForm()
+    return render(request, 'account/signup.html', {'form': form})
+
+
+@login_required
+def verify_code(request):
+    if request.method == 'POST':
+        form = VerifyForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data.get('code')
+            if verify.check(request.user.phone, code):
+                request.user.is_verified = True
+                request.user.save()
+                return redirect('home')
+    else:
+        form = VerifyForm()
+    return render(request, 'account/verify.html', {'form': form})
+
