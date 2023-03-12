@@ -4,11 +4,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from movies.views import register, verify_code
+from movies.views import register, verify_code, CinemasView
 
 urlpatterns = [
 path('register/', register, name="megaregister"),
 path('verify/', verify_code, name="megaverify"),
+path("cinemas/", CinemasView.as_view(), name="cinemas"),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 path('accounts/', include('allauth.urls')),

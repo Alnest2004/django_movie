@@ -8,7 +8,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 
 from . import verify
-from .models import Movie, Category, Actor, Genre, Rating
+from .models import Movie, Category, Actor, Genre, Rating, Cinema
 from .forms import ReviewForm, RatingForm, UserCreationForm, VerifyForm
 from .utils import DataMixin
 
@@ -37,7 +37,7 @@ class MoviesView(GenreYear, ListView):
     template_name = "movies/movie_list.html"
     context_object_name = 'movie_list'
 
-    paginate_by = 1
+    paginate_by = 3
 
     # def get_context_data(self, *, object_list = None, **kwargs):
     #     context = super().get_context_data(**kwargs)
@@ -211,7 +211,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            verify.send(form.cleaned_data.get('phone'))
+            # verify.send(form.cleaned_data.get('phone'))
             username = request.POST['username']
             password = request.POST['password1']
             user = authenticate(username=username, password=password)
@@ -235,4 +235,15 @@ def verify_code(request):
     else:
         form = VerifyForm()
     return render(request, 'account/verify.html', {'form': form})
+
+
+class CinemasView(ListView):
+    """Список фильмов"""
+    # request - вся информация присланная от клиента(Браузера)
+    model = Cinema
+    queryset = Cinema.objects.all()
+    template_name = "movies/cinema_list.html"
+    context_object_name = 'cinema_list'
+
+    paginate_by = 3
 

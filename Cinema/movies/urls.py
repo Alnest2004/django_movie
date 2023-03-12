@@ -13,7 +13,7 @@ urlpatterns =[
     path("category/<slug:cat_slug>/", views.CategoryView.as_view(), name='category'),
     path("actor/<str:slug>/", views.ActorView.as_view(), name='actor_detail'),
 
-path('register/', register),
+    path('register/', register),
 
-path('pages/', include('django.contrib.flatpages.urls'), name='xz'),
+    path('pages/', include('django.contrib.flatpages.urls'), name='xz'),
 ]

@@ -1,0 +1,37 @@
+{% extends 'movies/base.html' %}
+{% block header %} bg1 {% endblock header %}
+{% block movie %}
+                    <div class="left-ads-display col-lg-9">
+                        <div class="row">
+                            {% for cinema in cinema_list %}
+                            <div class="col-md-4 product-men">
+                                <div class="product-shoe-info editContent text-center mt-lg-4" >
+                                    <div class="item-info-product">
+                                        <h4 class="editContent">
+                                                {{ cinema.name }}
+                                                 <img src="{{ cinema.image.url }}" class="img-fluid" alt="" >
+
+                                        </h4>
+
+                                        <div class="product_price">
+                                            <div class="grid-price">
+                                                <span class="money editContent" >
+                                                    Адрес: {{ cinema.address }}
+                                                    <p></p>
+                                                    Номер телефона: {{ cinema.number }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="grid-img-right mt-4 text-right bg bg1" >
+                            {% include 'include/pagination.html' %}
+                        </div>
+                    </div>
+
+{% endblock movie %}
+
+

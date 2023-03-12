@@ -30,13 +30,13 @@
                                         <!-- Для того что бы отобразить в каких фильмах он режиссёр
                                          нам нужно использовать related_name из модели Movie. Метод обратного просмотра -->
                                         {% for movie in actor.film_director.all %}
-                                            {{ movie.title }}
+                                            {{ movie.title }},
                                         {% endfor %}
                                     </span>
                                 </li>
                                 <li><span><b>Актеры:</b>
                                     {% for movie in actor.film_actor.all %}
-                                        {{ movie.title }}
+                                        {{ movie.title }},
                                     {% endfor %}
                                 </span>
                                 </li>

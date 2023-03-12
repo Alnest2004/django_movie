@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hk7v__5=qw5ro@taiki8-8m*s6kkd+$$-ki#bw)dzr5iei04an
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0:7000', '0.0.0.0']
 
 
 # Application definition
@@ -94,8 +94,12 @@ WSGI_APPLICATION = 'Cinema.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cinema',
+        'USER': 'cinema',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

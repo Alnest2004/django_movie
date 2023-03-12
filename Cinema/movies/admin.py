@@ -210,9 +210,14 @@ class CinemaAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
+            "fields": (("name", "address", "number"),)
+        }),
+        (None, {
+            "fields": (("image",),)
+        }),
+        (None, {
             "fields": (("employee", "supplier"),)
         }),
-
     )
 
 @admin.register(User)

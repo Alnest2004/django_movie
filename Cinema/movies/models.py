@@ -84,7 +84,7 @@ class Movie(models.Model):
     )
     url = models.SlugField(max_length=130, unique=True)
     draft = models.BooleanField("Черновик", default=False)
-    cinema = models.ManyToManyField("Cinema", verbose_name="Кинотеатр", null=True)
+    cinema = models.ManyToManyField("Cinema", verbose_name="Кинотеатр", related_name="movie_cinema", null=True)
 
     def __str__(self):
         return self.title
@@ -213,6 +213,7 @@ class Supplier_list(models.Model):
 
 class Cinema(models.Model):
     name = models.CharField("Название кинотеатра", max_length=50)
+    image = models.ImageField("Изображение", upload_to="cinema/", null=True)
     address = models.CharField("Адрес кинотеатра", max_length=100)
     number = models.CharField("Номер телефона кинотеатра", max_length=30)
     employee = models.ManyToManyField(Employees, verbose_name="работник", related_name="cinema_employee")
@@ -224,6 +225,7 @@ class Cinema(models.Model):
     class Meta:
         verbose_name = "Кинотеатр"
         verbose_name_plural = "Кинотеатры"
+
 
 
 class User(AbstractUser):

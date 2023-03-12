@@ -478,7 +478,12 @@ mark,
 }
 
 .img-fluid {
-  max-width: 100%;
+  max-width: 350px;
+  height: 350px;
+}
+
+.img-fluiddsfs {
+    max-width: 100%;
   height: auto;
 }
 
