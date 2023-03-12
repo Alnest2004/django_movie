@@ -21,7 +21,7 @@ class GenreYear:
         return Genre.objects.all()
 
     def get_years(self):
-        return Movie.objects.filter(draft=False).values("year")
+        return Movie.objects.filter(draft=False).values("year").distinct().order_by("year")
 
 class GenreRating:
     """Получаем все оценки"""
